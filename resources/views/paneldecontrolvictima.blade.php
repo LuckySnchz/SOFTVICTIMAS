@@ -241,7 +241,7 @@ session_start();
  <!-VICTIMA SELECCIONADA>
  @foreach($victimas as $victima)
 
- @if($victima->idCaso==session("idCaso")&&$victima->id==session("idVictim"))
+ @if($victima->idCaso==session("idCaso")&&$victima->id==session("idVictim")&&$victima->activo=="1")
 <div class="container jumbotron shadow p-3 mb-5 bg-white rounded" style="max-width: 80%;margin-top: 5%;text-align: center">
   <strong><h4 class="text-center" style="height: 1%;color:white;background-color: black;max-width: 100%">Realizar Intervenciones:</h4></strong>
 
