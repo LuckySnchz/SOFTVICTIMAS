@@ -103,6 +103,18 @@
       {!! $errors->first('vinculo_persona_asistida', '<p class="help-block" style="color:red";>:message</p>') !!}
       </div>
 
+  @if($vinculo_victima== 1||$errors->has('vinculo_otro_familiar'))
+        <div id="vinculo_victima_cual_familiar" {{ $errors->has('vinculo_otro_familiar') ? 'has-error' : ''}}>
+        @else
+          <div id="vinculo_victima_cual_familiar" style="display: none;">
+      @endif
+      <br><label for="">Cuál?</label>
+      <div class="">
+      <input class="form-control" name="vinculo_otro_familiar" id="vinculo_otro" type="text" value="{{$vinculo_otro_familiar}}"><br>
+      {!! $errors->first('vinculo_otro_familiar', '<p class="help-block" style="color:red";>:message</p>') !!}
+      </div>
+      </div>
+
       @if($vinculo_victima== 4||$errors->has('vinculo_otro'))
         <div id="vinculo_victima_cual" {{ $errors->has('vinculo_otro') ? 'has-error' : ''}}>
         @else
@@ -166,6 +178,57 @@ onKeypress="addDashesPhoneUno(this)" required class="form-control" name="telefon
   nxx1 = f1.value.substr(3, 3);
   last41 = f1.value.substr(6, 4);
   f1.value = npa1 + '-' + nxx1 + '-' + last41;
+}
+</script>
+
+<div class="form-group"{{ $errors->has('otro_telefono_persona_asistida') ? 'has-error' : ''}}>
+      
+ @if($otro_telefono_persona_asistida==0) 
+<label for="edad">C 3 I. Otro teléfono de persona asistida:</label><br>
+<span>*Ingresa el número de teléfono, si es celular sin el 15. Característica sin el 0 y Presiona Ingresar!!</span><br><br>
+      <input type="tel"placeholder="Ingresar 10 dígitos, el sisrema le dará el formato 221-463-2683 o 114-563-2889" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+onKeypress="addDashesPhoneDos(this)" required class="form-control" name="otro_telefono_persona_asistida" id="otro_telefono_persona_asistida" value="Se Desconoce">
+
+      <label for="bloqueo1" class="form-check-label">Se desconoce</label>
+      <input type="checkbox" id="bloqueo1" name="otro_telefono_persona_asistida" value="000-000-0000" checked onchange="checkA15(this)">
+      @else
+<label for="otro_telefono_persona_asistida">A 14III. Teléfono de contacto: </label>
+<span>*Ingresa el número de teléfono, si es celular sin el 15. Característica sin el 0 y Presiona Ingresar!!</span><br><br>
+
+      <input type="tel"placeholder="Ingresar 10 dígitos, el sisrema le dará el formato 221-463-2683 o 114-563-2889" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+onKeypress="addDashesPhoneDos(this)" required class="form-control" name="otro_telefono_persona_asistida" id="otro_telefono_persona_asistida" value="{{$otro_telefono_persona_asistida}}">
+
+        <label for="bloqueo1" class="form-check-label">Se desconoce</label>
+      <input type="checkbox" id="bloqueo1" name="otro_telefono_persona_asistida" value="000-000-0000"  onchange="checkA15(this)">
+      @endif
+
+      {!! $errors->first('otro_telefono_persona_asistida', '<p class="help-block" style="color:red";>:message</p>') !!}
+      </div>
+      <script>
+           function checkA15(checkbox)
+           {
+               if (checkbox.checked)
+                   {
+                       $('#otro_telefono_persona_asistida').val('Se desconoce');
+                       document.getElementById('otro_telefono_persona_asistida').setAttribute("readonly", "readonly");
+                   }else
+                       {
+                           $('#otro_telefono_persona_asistida').val('');
+                           document.getElementById('otro_telefono_persona_asistida').removeAttribute("readonly");
+                       }
+           }
+        </script>
+<script type="text/javascript">
+  function addDashesPhoneUno(f2) {
+  var r2 = /(\D+)/g,
+  npa2 = '',
+  nxx2 = '',
+  last42 = '';
+  f2.value = f2.value.replace(r2, '');
+  npa2 = f2.value.substr(0, 3);
+  nxx2 = f2.value.substr(3, 3);
+  last42 = f2.value.substr(6, 4);
+  f2.value = npa2 + '-' + nxx2 + '-' + last42;
 }
 </script>
 <!-A14IV Domicilio>
@@ -341,9 +404,19 @@ onKeypress="addDashesPhoneUno(this)" required class="form-control" name="telefon
                 divC.style.display = "none";}
          }
       </script>
-      <script>
+       <script>
          function selectOnChangeA14II(sel) {
-           if (sel.value=="4"){
+           if (sel.value=="1"){
+             divC = document.getElementById("vinculo_victima_cual_familiar");
+             divC.style.display = "";}
+             else{
+                divC = document.getElementById("vinculo_victima_cual_familiar");
+                $('#vinculo_otro_familiar').val('');
+
+                divC.style.display = "none";}
+
+
+                 if (sel.value=="4"){
              divC = document.getElementById("vinculo_victima_cual");
              divC.style.display = "";}
              else{

@@ -111,7 +111,11 @@ Route::get("/agregarVictima",function(){
   $casoActual = App\Caso::find(session("idCaso"));
   $instituciones = App\Institucion::all();
   $institucionnav= App\Institucion::where("idCaso",session("idCaso"))->count();
-  return view("agregarVictima", compact("necesidades","programas","discapacidades","limitaciones","victims","instituciones","institucionnav","casoActual","cantVictimas"));
+
+  $ciudades =App\Ciudad::where("idPcia","1")
+  ->orWhere("idPcia","2")->get();
+   
+  return view("agregarVictima", compact("necesidades","programas","discapacidades","limitaciones","victims","instituciones","institucionnav","casoActual","cantVictimas","ciudades"));
 })->middleware('auth');
 Route::post("/agregarVictima","VictimController@agregar")->middleware('auth');
 Route::get("/eliminarvictima/{id}", "VictimController@eliminarvictima")->middleware('auth');

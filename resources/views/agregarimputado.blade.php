@@ -315,8 +315,12 @@
       @if(old("vinculo_victima") == 6) <option value="6" selected>Otro</option>
       @else<option value="6" >Otro</option>@endif
 
-      @if(old("vinculo_victima") == 7) <option value="7" selected>Se desconoce</option>
-      @else<option value="7" >Se desconoce</option>@endif
+      @if(old("vinculo_victima") == 7) <option value="7" selected>Ex Pareja</option>
+      @else<option value="7" >Ex Pareja</option>@endif
+
+      @if(old("vinculo_victima") == 8) <option value="8" selected>Se desconoce</option>
+      @else<option value="8" >Se desconoce</option>@endif
+
   </select>
   {!! $errors->first('vinculo_victima', '<p class="help-block" style="color:red";>:message</p>') !!}
   </div>

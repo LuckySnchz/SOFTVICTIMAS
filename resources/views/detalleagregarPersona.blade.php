@@ -272,6 +272,51 @@ onKeypress="addDashesPhoneUno(this)" required  id="telefono_persona_asistida" cl
 
            }}
     </script>
+<label for="edad">C 3 I. Otro teléfono de persona asistida:</label><br>
+<span>*Ingresa el número de teléfono, si es celular sin el 15. Característica sin el 0 y Presiona Ingresar!!</span><br><br>
+    <input type="tel" name="otro_telefono_persona_asistida" style="background-color: white;color:black" value="{{old('otro_telefono_persona_asistida')}}"   id="otro_telefono_persona_asistida" class="form-control" placeholder="Ingresar 10 dígitos, el sisrema le dará el formato 221-463-2683 o 114-563-2889" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+onKeypress="addDashesPhoneDos(this)"required ><br>
+
+    <label class="form-check-label" >Se desconoce</label>
+    <input name="otro_telefono_persona_asistida" value="000-000-0000" id="bloqueo1" type="checkbox" onchange="checkA15(this)">
+  @endif
+
+    {!! $errors->first('otro_telefono_persona_asistida', '<p class="help-block" style="color:red";>:message</p>') !!}
+    </div>
+
+
+</script>
+<script type="text/javascript">
+  function addDashesPhoneUno(f2) {
+  var r2= /(\D+)/g,
+  npa2 = '',
+  nxx2 = '',
+  last42 = '';
+  f1.value = f2.value.replace(r2, '');
+  npa2 = f2.value.substr(0, 3);
+  nxx2 = f2.value.substr(3, 3);
+  last42 = f2.value.substr(6, 4);
+  f2.value = npa2 + '-' + nxx2 + '-' + last42;
+}
+</script>
+<script type="text/javascript">
+       function checkA15(checkbox) {
+          if (checkbox.checked)
+                {
+                    $('#otro_telefono_persona_asistida').val('Se Desconoce');
+                    document.getElementById('otro_telefono_persona_asistida').setAttribute("readonly","readonly");
+                    document.getElementById('otro_telefono_persona_asistida').style.background="#e9ecef";
+                    divAY= document.getElementById("otro_telefono_persona_asistida").disabled=true;
+
+           }
+           else{
+                    $('#otro_telefono_persona_asistida').val('');
+                  document.getElementById('otro_telefono_persona_asistida').style.background="white";
+                    document.getElementById('otro_telefono_persona_asistida').removeAttribute("readonly");
+                  divA = document.getElementById("otro_telefono_persona_asistida").disabled=false;
+
+           }}
+    </script>
 
 
 <!-A14IV Domicilio>

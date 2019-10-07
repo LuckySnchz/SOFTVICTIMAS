@@ -214,6 +214,51 @@ onKeypress="addDashesPhoneDos(this)" required >
            }}
     </script>
 
+<!-DOMICILIO Y LOCALIDAD DE LA VICTIMA>
+
+
+<!-B 2II. Domicilio>
+
+     <div class="form-group" {{ $errors->has('domicilio_victima_asistida') ? 'has-error' : ''}}>
+    <label for="">B 2II Domicilio de la víctima:</label>
+
+    <input type="text" class="form-control" name="domicilio_victima_asistida" id="domicilio_victima_asistida" value="{{old("domicilio_victima_asistida")}}">
+
+    <label for="bloqueo1" class="form-check-label">Se desconoce</label>
+    <input type="checkbox" id="bloqueo1" name="domicilio_victima_asistida" value="Se desconoce" onchange="checkA14IV(this)">
+    {!! $errors->first('domicilio_victima_asistida', '<p class="help-block" style="color:red";>:message</p>') !!}
+    </div>
+
+    <script>
+         function checkA14IV(checkbox)
+         {
+             if (checkbox.checked)
+                 {
+                     $('#domicilio_victima_asistida').val('Se desconoce');
+                     document.getElementById('domicilio_victima_asistida').setAttribute("readonly", "readonly");
+                 }else
+                     {
+                         $('#domicilio_victima_asistida').val('');
+                         document.getElementById('domicilio_victima_asistida').removeAttribute("readonly");
+                     }
+         }
+      </script>
+<div class="form-group" id="localidad_hecho" {{ $errors->has('localidad_hecho') ? 'has-error' : ''}}>
+
+    <label for="cityId2">B 2III. Localidad:</label>
+    <select class="form-control" name="localidad_hecho" onChange="selectOnChangeA2(this)">
+              <option value="" selected=disabled>Seleccionar...</option>
+              @foreach ($ciudades as $ciudad)
+                @if(old("localidad_hecho")==$ciudad->id)
+                <option selected value="{{ $ciudad->id }}">{{ $ciudad->localidad_nombre}}</option>
+              @else <option  value="{{ $ciudad->id }}">{{ $ciudad->localidad_nombre}}</option>
+              @endif
+            @endforeach
+            </select>
+
+  
+    {!! $errors->first('localidad_hecho', '<p class="help-block" style="color:red";>:message</p>') !!}
+   </div><br><br>
 <!B3 Género>
 
     <div class="form-group"{{ $errors->has('genero') ? 'has-error' : ''}}>

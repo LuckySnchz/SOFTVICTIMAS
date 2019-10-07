@@ -27,7 +27,9 @@ public function agregar(Request $form){
   "genero"=>"required|integer",
   "victima_fecha_nacimiento"=> "required|date_format:Y-m-d|before:$hoy|after:1899-12-31",
  'telefono_victima'=>'required|regex:/^([0-9-])+$/',
-  'otro_telefono_victima'=>'required|regex:/^([0-9-])+$/',
+ 'otro_telefono_victima'=>'required|regex:/^([0-9-])+$/',
+  'domicilio_victima_asistida'=>'required|min:3|max:255|regex:/^([0-9a-zA-ZñÑ.\s*-])+$/', 
+  'localidad_hecho'=>'required',
   "victima_edad"=>"required|integer",
   "franjaetaria"=>"required",
   "tienedoc"=>"required|integer",
@@ -122,6 +124,10 @@ public function agregar(Request $form){
     $victim= new Victim( );
 
     $victim->victima_nombre_y_apellido= $form ["victima_nombre_y_apellido"];
+    $victim->telefono_victima= $form ["telefono_victima"];
+    $victim->otro_telefono_victima= $form ["otro_telefono_victima"];
+    $victim->domicilio_victima_asistida=$form["domicilio_victima_asistida"]; 
+    $victim->localidad_hecho=$form["localidad_hecho"];
     $victim->genero= $form ["genero"];
     $victim->victima_fecha_nacimiento= $form ["victima_fecha_nacimiento"];
     $victim->victima_edad= $form ["victima_edad"];
@@ -201,6 +207,8 @@ public function agregar(Request $form){
         $victima_nombre_y_apellido=$victim->victima_nombre_y_apellido;
         $telefono_victima=$victim->telefono_victima;
         $otro_telefono_victima=$victim->otro_telefono_victima;
+        $domicilio_victima_asistida=$victim->domicilio_victima_asistida;
+        $localidad_hecho=$victim->localidad_hecho;
         $genero=$victim->genero;
         $victima_fecha_nacimiento=$victim->victima_fecha_nacimiento;
         $victima_edad=$victim->victima_edad;
@@ -230,7 +238,7 @@ public function agregar(Request $form){
 
 
 
-               return view("detalleVictima",compact("victimas","victim","victima_nombre_y_apellido","genero","victima_fecha_nacimiento","victima_edad","franjaetaria","tienedoc","tipodocumento","tipo_documento_otro","residenciaprecaria","victima_numero_documento","niveleducativo","condiciones_de_trabajo","necesidades_socioeconomicas_insatisfechas","necesidades_socioeconomicas_insatisfechas_otro","programa_subsidio","programa_subsidio_otro","tiene_discapacidad","embarazorelevamiento","tienelesion","tipo_lesion","enfermedadcronica","enfermedadcronica","tipo_enfermedad_cronica","limitacion_otro","necesidades","programas","tiene_limitacion","limitaciones","discapacidades","persona_asistida","otras_personas_asistidas"));
+               return view("detalleVictima",compact("victimas","victim","victima_nombre_y_apellido","genero","victima_fecha_nacimiento","victima_edad","franjaetaria","tienedoc","tipodocumento","tipo_documento_otro","residenciaprecaria","victima_numero_documento","niveleducativo","condiciones_de_trabajo","necesidades_socioeconomicas_insatisfechas","necesidades_socioeconomicas_insatisfechas_otro","programa_subsidio","programa_subsidio_otro","tiene_discapacidad","embarazorelevamiento","tienelesion","tipo_lesion","enfermedadcronica","enfermedadcronica","tipo_enfermedad_cronica","limitacion_otro","necesidades","programas","tiene_limitacion","limitaciones","discapacidades","persona_asistida","otras_personas_asistidas","domicilio_victima_asistida","localidad_hecho"));
 
     }
 
@@ -264,8 +272,10 @@ return redirect("paneldecontrolvictima/{$idCaso}");
   "victima_nombre_y_apellido"=>"required|min:3|max:255|regex:/^([a-zA-ZñÑ.\s*-])+$/",
   "genero"=>"required|integer",
   "victima_fecha_nacimiento"=> "required|date_format:Y-m-d|before:$hoy|after:1899-12-31",
- 'telefono_victima'=>'required|regex:/^([0-9-])+$/',
+  'telefono_victima'=>'required|regex:/^([0-9-])+$/',
   'otro_telefono_victima'=>'required|regex:/^([0-9-])+$/',
+  'domicilio_victima_asistida'=>'required|min:3|max:255|regex:/^([0-9a-zA-ZñÑ.\s*-])+$/',
+  'localidad_hecho'=>'required',
   "victima_edad"=>"required|integer",
   "franjaetaria"=>"required",
   "tienedoc"=>"required|integer",
@@ -372,6 +382,8 @@ return redirect("paneldecontrolvictima/{$idCaso}");
         $victim->victima_nombre_y_apellido= $form ["victima_nombre_y_apellido"];
         $victim->telefono_victima= $form ["telefono_victima"];
         $victim->otro_telefono_victima= $form ["otro_telefono_victima"];
+        $victim->domicilio_victima_asistida=$form["domicilio_victima_asistida"];
+        $victim->localidad_hecho=$form["localidad_hecho"];
         $victim->genero= $form ["genero"];
         $victim->victima_fecha_nacimiento= $form ["victima_fecha_nacimiento"];
         $victim->victima_edad= $form ["victima_edad"];

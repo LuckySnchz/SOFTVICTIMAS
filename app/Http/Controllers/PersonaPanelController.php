@@ -20,13 +20,15 @@ session(["idPersona" => $id]);
 $nombre_persona_asistida=$persona->nombre_persona_asistida;
 $vinculo_victima=$persona->vinculo_victima;
 $vinculo_otro=$persona->vinculo_otro;
+$vinculo_otro_familiar=$persona->vinculo_otro_familiar;
 $telefono_persona_asistida=$persona->telefono_persona_asistida;
+$otro_telefono_persona_asistida=$persona->otro_telefono_persona_asistida;
 $domicilio_persona_asistida=$persona->domicilio_persona_asistida;
 $localidad_persona_asistida=$persona->localidad_persona_asistida;
 
 if(Persona_nueva::where("idVictim",session("idVictim"))->where("idPersona",$id)->count()==0){
    
-   return view("detallepersonavinculo", compact("persona","personas","nombre_persona_asistida","vinculo_victima","vinculo_otro","telefono_persona_asistida","domicilio_persona_asistida","localidad_persona_asistida"));
+   return view("detallepersonavinculo", compact("persona","personas","nombre_persona_asistida","vinculo_victima","vinculo_otro","telefono_persona_asistida","domicilio_persona_asistida","localidad_persona_asistida","otro_telefono_persona_asistida","vinculo_otro_familiar"));
     }
 else{
           $duplicado=Persona::find($id)->nombre_persona_asistida;
@@ -62,6 +64,11 @@ public function agregar(Request $form){
  {        return $input->agregar_persona == 1 || $input->cantVictimas ==1;
          });
 
+
+  $validator->sometimes('otro_telefono_persona_asistida', 'required|regex:/^([0-9-])+$/', function ($input)
+ {        return $input->agregar_persona == 1 || $input->cantVictimas ==1;
+         });
+
   $validator->sometimes('domicilio_persona_asistida', 'required|min:3|max:255|regex:/^([0-9a-zA-ZñÑ.\s*-])+$/', function ($input)
   {        return $input->agregar_persona == 1 || $input->cantVictimas ==1;
           });
@@ -70,7 +77,8 @@ public function agregar(Request $form){
   {        return $input->agregar_persona == 1 || $input->cantVictimas ==1;
           });
 
-
+  $validator->sometimes('vinculo_otro_familiar', 'required|min:3|max:255|regex:/^([a-zA-ZñÑ.\s*-])+$/', function ($input) {        return $input->vinculo_victima == 1;
+          });
   $validator->sometimes('vinculo_otro', 'required|min:3|max:255|regex:/^([a-zA-ZñÑ.\s*-])+$/', function ($input) {        return $input->vinculo_victima == 4;
           });
 
@@ -90,6 +98,7 @@ $persona= new Persona();
 $persona->nombre_persona_asistida= $form ["nombre_persona_asistida"];
 $persona->vinculo_victima= $form ["vinculo_victima"];
 $persona->vinculo_otro= $form ["vinculo_otro"];
+$persona->vinculo_otro_familiar= $form ["vinculo_otro_familiar"];
 $persona->telefono_persona_asistida= $form ["telefono_persona_asistida"];
 $persona->domicilio_persona_asistida= $form ["domicilio_persona_asistida"];
 $persona->localidad_persona_asistida= $form ["localidad_persona_asistida"];
@@ -184,6 +193,10 @@ public function editar(Request $form) {
 ];
 $validator = Validator::make($form->all(), $reglas);
 
+$validator->sometimes('vinculo_otro_familiar', 'required|min:3|max:255|regex:/^([a-zA-ZñÑ.\s*-])+$/', function ($input) {
+      return $input->vinculo_victima == 4;
+    });
+
     $validator->sometimes('vinculo_otro', 'required|min:3|max:255|regex:/^([a-zA-ZñÑ.\s*-])+$/', function ($input) {
       return $input->vinculo_victima == 4;
     });
@@ -199,6 +212,7 @@ $validator = Validator::make($form->all(), $reglas);
       $persona->nombre_persona_asistida= $form ["nombre_persona_asistida"];
       $persona->vinculo_victima= $form ["vinculo_victima"];
       $persona->vinculo_otro= $form ["vinculo_otro"];
+      $persona->vinculo_otro_familiar= $form ["vinculo_otro_familiar"];
       $persona->telefono_persona_asistida= $form ["telefono_persona_asistida"];
       $persona->domicilio_persona_asistida= $form ["domicilio_persona_asistida"];
       $persona->localidad_persona_asistida= $form ["localidad_persona_asistida"];
@@ -220,6 +234,7 @@ public function detalle($id) {
 $nombre_persona_asistida=$persona->nombre_persona_asistida;
 $vinculo_victima=$persona->vinculo_victima;
 $vinculo_otro=$persona->vinculo_otro;
+$vinculo_otro_familiar=$persona->vinculo_otro_familiar;
 $telefono_persona_asistida=$persona->telefono_persona_asistida;
 $domicilio_persona_asistida=$persona->domicilio_persona_asistida;
 $localidad_persona_asistida=$persona->localidad_persona_asistida;
@@ -227,7 +242,7 @@ $localidad_persona_asistida=$persona->localidad_persona_asistida;
 
    
    return view("detallePersona", compact("persona","personas","nombre_persona_asistida",
-    "vinculo_victima","vinculo_otro","telefono_persona_asistida","domicilio_persona_asistida","localidad_persona_asistida","cantVictimas"));
+    "vinculo_victima","vinculo_otro","telefono_persona_asistida","domicilio_persona_asistida","localidad_persona_asistida","cantVictimas","vinculo_otro_familiar"));
   
 }
 }

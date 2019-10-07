@@ -34,12 +34,19 @@ $cantVictimas =Victim::where("idCaso",session("idCaso"))->count();
 
 
 
- $validator->sometimes('vinculo_otro', 'required|min:3|max:255|regex:/^([a-zA-ZñÑ.\s*-])+$/', function ($input)
-  {        return $input->vinculo_victima == 4;
+ $validator->sometimes('vinculo_otro_familiar', 'required|min:3|max:255|regex:/^([a-zA-ZñÑ.\s*-])+$/', function ($input)
+  {        return $input->vinculo_victima==1;
           });
 
 
+ $validator->sometimes('vinculo_otro', 'required|min:3|max:255|regex:/^([a-zA-ZñÑ.\s*-])+$/', function ($input)
+  {        return $input->vinculo_victima==4;
+          });
+
   $validator->sometimes('telefono_persona_asistida', 'required|regex:/^([0-9-])+$/', function ($input)
+  {        return $input->agregar_persona == 1 || $input->cantVictimas ==1;
+          });
+    $validator->sometimes('otro_telefono_persona_asistida', 'required|regex:/^([0-9-])+$/', function ($input)
   {        return $input->agregar_persona == 1 || $input->cantVictimas ==1;
           });
 
@@ -70,7 +77,9 @@ $persona= new Persona();
 $persona->nombre_persona_asistida= $form ["nombre_persona_asistida"];
 $persona->vinculo_victima= $form ["vinculo_victima"];
 $persona->vinculo_otro= $form ["vinculo_otro"];
+$persona->vinculo_otro_familiar= $form ["vinculo_otro_familiar"];
 $persona->telefono_persona_asistida= $form ["telefono_persona_asistida"];
+$persona->otro_telefono_persona_asistida= $form ["otro_telefono_persona_asistida"];
 $persona->domicilio_persona_asistida= $form ["domicilio_persona_asistida"];
 $persona->localidad_persona_asistida= $form ["localidad_persona_asistida"];
 $persona->idCaso= session("idCaso");
@@ -140,6 +149,7 @@ public function detalle($id) {
       $persona->vinculo_persona_asistida= $form ["vinculo_persona_asistida"];
       $persona->otro_vinculo_persona_asistida_cual= $form ["otro_vinculo_persona_asistida_cual"];
       $persona->telefono_persona_asistida= $form ["telefono_persona_asistida"];
+       $persona->otro_telefono_persona_asistida= $form ["otro_telefono_persona_asistida"];
       $persona->domicilio_persona_asistida= $form ["domicilio_persona_asistida"];
       $persona->localidad_persona_asistida= $form ["localidad_persona_asistida"];
       $persona->idCaso= $form["idCaso"];
