@@ -40,7 +40,7 @@ $validator->sometimes('oprevios', 'required', function ($input) {
   return $input->organismos_intervinieron == 1;
 });
 
-$validator->sometimes('cual_otro_organismo', "required|min:3|max:100|regex:/^([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ_-])+((\s*)+([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ_-]*)*)+$/", function ($input) {
+$validator->sometimes('cual_otro_organismo', "required|min:3|max:1000|regex:/^([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ_-])+((\s*)+([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ_-]*)*)+$/", function ($input) {
 return is_array($input->oprevios) && in_array(24,$input->oprevios);
 });
 
@@ -52,7 +52,7 @@ $validator->sometimes('fecha_de_solicitud',"required|date_format:Y-m-d|before:$h
   return $input->pratocinio_gratuito == 2;
 });
 
-$validator->sometimes('letrado_designado', "required|min:3|max:100|regex:/^([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ_-])+((\s*)+([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ_-]*)*)+$/", function ($input) {
+$validator->sometimes('letrado_designado', "required|min:3|max:1000|regex:/^([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ_-])+((\s*)+([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ_-]*)*)+$/", function ($input) {
   return $input->pratocinio_gratuito == 3;
 });
 
@@ -73,11 +73,11 @@ $validator->sometimes('fecha_designacion',"required|date_format:Y-m-d|before:$ho
   return $input->pratocinio_gratuito == 3;
 });
 
-$validator->sometimes('organismos_actual_otro', "required|min:3|max:100|regex:/^([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ_-])+((\s*)+([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ_-]*)*)+$/", function ($input) {
+$validator->sometimes('organismos_actual_otro', "required|min:3|max:1000|regex:/^([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ_-])+((\s*)+([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ_-]*)*)+$/", function ($input) {
 return is_array($input->oarticulas) && in_array(24,$input->oarticulas);
 });
 
-$validator->sometimes('socioeconomica_otro', "required|min:3|max:100|regex:/^([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ_-])+((\s*)+([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ_-]*)*)+$/", function ($input) {
+$validator->sometimes('socioeconomica_otro', "required|min:3|max:1000|regex:/^([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ_-])+((\s*)+([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ_-]*)*)+$/", function ($input) {
   return is_array($input->socioeconomicos) && in_array(6,$input->socioeconomicos);
 });
 

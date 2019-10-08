@@ -11,6 +11,7 @@ use App\Limitacion;
 use App\Discapacidad;
 use App\Caso;
 use App\Delito;
+use App\Ciudad;
 use Validator;
 
 class VictimaPanelController extends Controller
@@ -188,6 +189,16 @@ public function agregar(Request $form){
     
 
       public function eliminar($id) {
+        $intervenciones=Intervenicion::where("idVictim",$id);
+       foreach ($Intervenicion as $Interven) {
+         if($Interven->idVictim==$id){
+          $Interven->$id;
+          $Intervenicion=Intervenicion::find($Interven);
+          $Intervenicion->delete();
+         }
+       }
+        
+
         $victima = Victim::find($id);
         $victima->delete();
           return redirect("agregarVictima");
@@ -203,6 +214,8 @@ public function agregar(Request $form){
     $programas = Programa::all();
     $discapacidades = Discapacidad::all();
     $limitaciones = Limitacion::all();
+     $ciudades =Ciudad::where("idPcia","1")
+  ->orWhere("idPcia","2")->get();
 
         $victima_nombre_y_apellido=$victim->victima_nombre_y_apellido;
         $telefono_victima=$victim->telefono_victima;
@@ -238,7 +251,7 @@ public function agregar(Request $form){
 
 
 
-               return view("detalleVictima",compact("victimas","victim","victima_nombre_y_apellido","genero","victima_fecha_nacimiento","victima_edad","franjaetaria","tienedoc","tipodocumento","tipo_documento_otro","residenciaprecaria","victima_numero_documento","niveleducativo","condiciones_de_trabajo","necesidades_socioeconomicas_insatisfechas","necesidades_socioeconomicas_insatisfechas_otro","programa_subsidio","programa_subsidio_otro","tiene_discapacidad","embarazorelevamiento","tienelesion","tipo_lesion","enfermedadcronica","enfermedadcronica","tipo_enfermedad_cronica","limitacion_otro","necesidades","programas","tiene_limitacion","limitaciones","discapacidades","persona_asistida","otras_personas_asistidas","domicilio_victima_asistida","localidad_hecho"));
+               return view("detalleVictima",compact("victimas","victim","victima_nombre_y_apellido","genero","victima_fecha_nacimiento","victima_edad","franjaetaria","tienedoc","tipodocumento","tipo_documento_otro","residenciaprecaria","victima_numero_documento","niveleducativo","condiciones_de_trabajo","necesidades_socioeconomicas_insatisfechas","necesidades_socioeconomicas_insatisfechas_otro","programa_subsidio","programa_subsidio_otro","tiene_discapacidad","embarazorelevamiento","tienelesion","tipo_lesion","enfermedadcronica","enfermedadcronica","tipo_enfermedad_cronica","limitacion_otro","necesidades","programas","tiene_limitacion","limitaciones","discapacidades","persona_asistida","otras_personas_asistidas","domicilio_victima_asistida","localidad_hecho","ciudades"));
 
     }
 

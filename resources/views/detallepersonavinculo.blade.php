@@ -103,6 +103,18 @@
       {!! $errors->first('vinculo_persona_asistida', '<p class="help-block" style="color:red";>:message</p>') !!}
       </div>
 
+      @if($vinculo_victima== 1||$errors->has('vinculo_otro_familiar'))
+        <div id="vinculo_victima_cual_familiar" {{ $errors->has('vinculo_otro_familiar') ? 'has-error' : ''}}>
+        @else
+          <div id="vinculo_victima_cual_familiar" style="display: none;">
+      @endif
+      <br><label for="">Cuál?</label>
+      <div class="">
+      <input class="form-control" name="vinculo_otro_familiar" id="vinculo_otro_familiar" type="text" value="{{$persona->vinculo_otro_familiar}}"><br>
+      {!! $errors->first('vinculo_otro_familiar', '<p class="help-block" style="color:red";>:message</p>') !!}
+      </div>
+      </div>
+
       @if($vinculo_victima== 4||$errors->has('vinculo_otro'))
         <div id="vinculo_victima_cual" {{ $errors->has('vinculo_otro') ? 'has-error' : ''}}>
         @else
@@ -110,8 +122,8 @@
       @endif
       <br><label for="">Cuál?</label>
       <div class="">
-      <input class="form-control" name="vinculo_otro" id="vinculo_otro" type="text" value="{{$vinculo_otro}}"><br>
-       {!! $errors->first('vinculo_otro', '<p class="help-block" style="color:red";>:message</p>') !!}
+      <input class="form-control" name="vinculo_otro" id="vinculo_otro" type="text" value="{{$persona->vinculo_otro}}"><br>
+      {!! $errors->first('vinculo_otro', '<p class="help-block" style="color:red";>:message</p>') !!}
       </div>
       </div>
       </div>
@@ -324,16 +336,17 @@
       </script>
       <script>
          function selectOnChangeA14II(sel) {
+           if (sel.value=="1"){
+             divC = document.getElementById("vinculo_victima_cual_familiar");
+             divC.style.display = "";}
+             else{
+                divC = document.getElementById("vinculo_victima_cual_familiar");
+                $('#vinculo_otro_familiar').val('');
 
-           if (sel.value=="1"||sel.value=="2"||sel.value=="3"||sel.value=="4"){
-              divCcc = document.getElementById("vinculo_victima");
-       divCcc.style.backgroundColor = 'white';
-           }
-        
+                divC.style.display = "none";}
 
 
-
-           if (sel.value=="4"){
+                 if (sel.value=="4"){
              divC = document.getElementById("vinculo_victima_cual");
              divC.style.display = "";}
              else{

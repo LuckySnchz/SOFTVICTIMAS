@@ -72,7 +72,15 @@ $validator->sometimes('fiscalia_juzgado', 'required|min:3|max:255|regex:/^([0-9a
   return $input->agregar_imputado == 1 || $input->cantVictimas ==1;
         });
 
-$validator->sometimes('causa_id_judicial','required|integer|max:2147483646' , function ($input) {
+$validator->sometimes('causa_id_judicial','required|regex:/^([0-9a-zA-ZñÑ.\s*-])+$/' , function ($input) {
+  return $input->agregar_imputado == 1 || $input->cantVictimas ==1;
+        });
+
+$validator->sometimes('otra_causa_id_judicial','required|regex:/^([0-9a-zA-ZñÑ.\s*-])+$/' , function ($input) {
+  return $input->agregar_imputado == 1 || $input->cantVictimas ==1;
+        });
+
+$validator->sometimes('otra_otra_causa_id_judicial','required|regex:/^([0-9a-zA-ZñÑ.\s*-])+$/' , function ($input) {
   return $input->agregar_imputado == 1 || $input->cantVictimas ==1;
         });
 
@@ -124,6 +132,8 @@ $validator->sometimes('causa_id_judicial','required|integer|max:2147483646' , fu
     $imputado->defensoria_nro= $form["defensoria_numero"];
     $imputado->fiscalia_juzgado= $form["fiscalia_juzgado"];
     $imputado->causa_id_judicial= $form["causa_id_judicial"];
+    $imputado->otra_causa_id_judicial= $form["otra_causa_id_judicial"];
+    $imputado->otra_otra_causa_id_judicial= $form["otra_otra_causa_id_judicial"];
     $imputado->idVictim= session("idVictim");
     $imputado->idCaso= session("idCaso");
     $imputado->userID_create= Auth::id();

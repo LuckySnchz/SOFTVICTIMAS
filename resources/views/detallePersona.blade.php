@@ -110,7 +110,7 @@
       @endif
       <br><label for="">Cuál?</label>
       <div class="">
-      <input class="form-control" name="vinculo_otro_familiar" id="vinculo_otro" type="text" value="{{$vinculo_otro_familiar}}"><br>
+      <input class="form-control" name="vinculo_otro_familiar" id="vinculo_otro_familiar" type="text" value="{{$persona->vinculo_otro_familiar}}"><br>
       {!! $errors->first('vinculo_otro_familiar', '<p class="help-block" style="color:red";>:message</p>') !!}
       </div>
       </div>
@@ -122,51 +122,42 @@
       @endif
       <br><label for="">Cuál?</label>
       <div class="">
-      <input class="form-control" name="vinculo_otro" id="vinculo_otro" type="text" value="{{$vinculo_otro}}"><br>
+      <input class="form-control" name="vinculo_otro" id="vinculo_otro" type="text" value="{{$persona->vinculo_otro}}"><br>
       {!! $errors->first('vinculo_otro', '<p class="help-block" style="color:red";>:message</p>') !!}
       </div>
       </div>
       </div>
 
-<!-A14III telefono>
+<!-C 3. telefono>
 
-      <div class="form-group"{{ $errors->has('telefono_persona_asistida') ? 'has-error' : ''}}>
-      
- @if($telefono_persona_asistida==0) 
+       <div class="form-group"{{ $errors->has('telefono_persona_asistida') ? 'has-error' : ''}}>
+
+
+    @if(old('telefono_persona_asistida')=="0")
+
+<label >C 3. teléfono de persona asistida:</label>
+<strong>Ingresa el número de teléfono, si es celular sin el 15. Característica sin el 0 y Presiona Ingresar!!</strong><br><br>
+
+    <input name="telefono_persona_asistida" placeholder="Ingresar 10 dígitos, el sisrema le dará el formato 221-463-2683 o 114-563-2889" style="background-color: #e9ecef;color:black" value="{{$persona->telefono_persona_asistida}}"   id="telefono_persona_asistida" class="form-control" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" onKeypress="addDashesPhoneUno(this)" type="tel" readonly="readonly"/><br>
+
+    <label class="form-check-label">Se desconoce</label>
+    <input name="telefono_persona_asistida" value="000-000-0000" id="bloqueo1" type="checkbox" checked onchange="checkA14(this)">
+    @else
+
 <label for="edad">C 3. teléfono de persona asistida:</label><br>
-<span>*Ingresa el número de teléfono, si es celular sin el 15. Característica sin el 0 y Presiona Ingresar!!</span><br><br>
-      <input type="tel"placeholder="Ingresar 10 dígitos, el sisrema le dará el formato 221-463-2683 o 114-563-2889" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
-onKeypress="addDashesPhoneUno(this)" required class="form-control" name="telefono_persona_asistida" id="telefono_persona_asistida" value="Se Desconoce">
+<strong>*Ingresa el número de teléfono, si es celular sin el 15. Característica sin el 0 y Presiona Ingresar!!</strong><br><br>
+    <input type="tel" name="telefono_persona_asistida" style="background-color: white;color:black" value="{{$persona->telefono_persona_asistida}}"   id="telefono_persona_asistida" class="form-control" placeholder="Ingresar 10 dígitos, el sisrema le dará el formato 221-463-2683 o 114-563-2889" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+onKeypress="addDashesPhoneUno(this)"required ><br>
 
-      <label for="bloqueo1" class="form-check-label">Se desconoce</label>
-      <input type="checkbox" id="bloqueo1" name="telefono_persona_asistida" value="000-000-0000" checked onchange="checkA14(this)">
-      @else
-<label for="telefono_persona_asistida">A 14III. Teléfono de contacto: </label>
-<span>*Ingresa el número de teléfono, si es celular sin el 15. Característica sin el 0 y Presiona Ingresar!!</span><br><br>
+    <label class="form-check-label" >Se desconoce</label>
+    <input name="telefono_persona_asistida" value="000-000-0000" id="bloqueo1" type="checkbox" onchange="checkA14(this)">
+  @endif
 
-      <input type="tel"placeholder="Ingresar 10 dígitos, el sisrema le dará el formato 221-463-2683 o 114-563-2889" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
-onKeypress="addDashesPhoneUno(this)" required class="form-control" name="telefono_persona_asistida" id="telefono_persona_asistida" value="{{$telefono_persona_asistida}}">
+    {!! $errors->first('telefono_persona_asistida', '<p class="help-block" style="color:red";>:message</p>') !!}
+    </div>
 
-        <label for="bloqueo1" class="form-check-label">Se desconoce</label>
-      <input type="checkbox" id="bloqueo1" name="telefono_persona_asistida" value="000-000-0000"  onchange="checkA14(this)">
-      @endif
 
-      {!! $errors->first('telefono_persona_asistida', '<p class="help-block" style="color:red";>:message</p>') !!}
-      </div>
-      <script>
-           function checkA14(checkbox)
-           {
-               if (checkbox.checked)
-                   {
-                       $('#telefono_persona_asistida').val('Se desconoce');
-                       document.getElementById('telefono_persona_asistida').setAttribute("readonly", "readonly");
-                   }else
-                       {
-                           $('#telefono_persona_asistida').val('');
-                           document.getElementById('telefono_persona_asistida').removeAttribute("readonly");
-                       }
-           }
-        </script>
+
 <script type="text/javascript">
   function addDashesPhoneUno(f1) {
   var r1 = /(\D+)/g,
@@ -180,47 +171,60 @@ onKeypress="addDashesPhoneUno(this)" required class="form-control" name="telefon
   f1.value = npa1 + '-' + nxx1 + '-' + last41;
 }
 </script>
-
-<div class="form-group"{{ $errors->has('otro_telefono_persona_asistida') ? 'has-error' : ''}}>
-      
- @if($otro_telefono_persona_asistida==0) 
-<label for="edad">C 3 I. Otro teléfono de persona asistida:</label><br>
-<span>*Ingresa el número de teléfono, si es celular sin el 15. Característica sin el 0 y Presiona Ingresar!!</span><br><br>
-      <input type="tel"placeholder="Ingresar 10 dígitos, el sisrema le dará el formato 221-463-2683 o 114-563-2889" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
-onKeypress="addDashesPhoneDos(this)" required class="form-control" name="otro_telefono_persona_asistida" id="otro_telefono_persona_asistida" value="Se Desconoce">
-
-      <label for="bloqueo1" class="form-check-label">Se desconoce</label>
-      <input type="checkbox" id="bloqueo1" name="otro_telefono_persona_asistida" value="000-000-0000" checked onchange="checkA15(this)">
-      @else
-<label for="otro_telefono_persona_asistida">A 14III. Teléfono de contacto: </label>
-<span>*Ingresa el número de teléfono, si es celular sin el 15. Característica sin el 0 y Presiona Ingresar!!</span><br><br>
-
-      <input type="tel"placeholder="Ingresar 10 dígitos, el sisrema le dará el formato 221-463-2683 o 114-563-2889" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
-onKeypress="addDashesPhoneDos(this)" required class="form-control" name="otro_telefono_persona_asistida" id="otro_telefono_persona_asistida" value="{{$otro_telefono_persona_asistida}}">
-
-        <label for="bloqueo1" class="form-check-label">Se desconoce</label>
-      <input type="checkbox" id="bloqueo1" name="otro_telefono_persona_asistida" value="000-000-0000"  onchange="checkA15(this)">
-      @endif
-
-      {!! $errors->first('otro_telefono_persona_asistida', '<p class="help-block" style="color:red";>:message</p>') !!}
-      </div>
-      <script>
-           function checkA15(checkbox)
-           {
-               if (checkbox.checked)
-                   {
-                       $('#otro_telefono_persona_asistida').val('Se desconoce');
-                       document.getElementById('otro_telefono_persona_asistida').setAttribute("readonly", "readonly");
-                   }else
-                       {
-                           $('#otro_telefono_persona_asistida').val('');
-                           document.getElementById('otro_telefono_persona_asistida').removeAttribute("readonly");
-                       }
-           }
-        </script>
 <script type="text/javascript">
-  function addDashesPhoneUno(f2) {
-  var r2 = /(\D+)/g,
+       function checkA14(checkbox) {
+          if (checkbox.checked)
+                {
+                    $('#telefono_persona_asistida').val('Se Desconoce');
+                    document.getElementById('telefono_persona_asistida').setAttribute("readonly","readonly");
+                    document.getElementById('telefono_persona_asistida').style.background="#e9ecef";
+                    divAY= document.getElementById("telefono_persona_asistida").disabled=true;
+
+           }
+           else{
+                    $('#telefono_persona_asistida').val('');
+                  document.getElementById('telefono_persona_asistida').style.background="white";
+                    document.getElementById('telefono_persona_asistida').removeAttribute("readonly");
+                  divA = document.getElementById("telefono_persona_asistida").disabled=false;
+
+           }}
+    </script>
+
+
+
+
+<!-C 3. Otro telefono>
+
+       <div class="form-group"{{ $errors->has('otro_telefono_persona_asistida') ? 'has-error' : ''}}>
+
+
+    @if(old('otro_telefono_persona_asistida')=="0")
+
+<label >C 3 I. Otro teléfono de persona asistida:</label>
+<strong>Ingresa el número de teléfono, si es celular sin el 15. Característica sin el 0 y Presiona Ingresar!!</strong><br><br>
+
+    <input name="otro_telefono_persona_asistida" placeholder="Ingresar 10 dígitos, el sisrema le dará el formato 221-463-2683 o 114-563-2889" style="background-color: #e9ecef;color:black" value="{{$persona->otro_telefono_persona_asistida}}"   id="otro_telefono_persona_asistida" class="form-control" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" onKeypress="addDashesPhoneDos(this)" type="tel" readonly="readonly"/><br>
+
+    <label class="form-check-label">Se desconoce</label>
+    <input name="otro_telefono_persona_asistida" value="000-000-0000" id="bloqueo1" type="checkbox" checked onchange="checkA15(this)">
+    @else
+
+<label for="edad">C 3 I. Otro teléfono de persona asistida:</label><br>
+<strong>*Ingresa el número de teléfono, si es celular sin el 15. Característica sin el 0 y Presiona Ingresar!!</strong><br><br>
+    <input type="tel" name="otro_telefono_persona_asistida" style="background-color: white;color:black" value="{{$persona->otro_telefono_persona_asistida}}"   id="otro_telefono_persona_asistida" class="form-control" placeholder="Ingresar 10 dígitos, el sisrema le dará el formato 221-463-2683 o 114-563-2889" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+onKeypress="addDashesPhoneDos(this)"required ><br>
+
+    <label class="form-check-label" >Se desconoce</label>
+    <input name="otro_telefono_persona_asistida" value="000-000-0000" id="bloqueo1" type="checkbox" onchange="checkA15(this)">
+  @endif
+
+    {!! $errors->first('otro_telefono_persona_asistida', '<p class="help-block" style="color:red";>:message</p>') !!}
+    </div>
+      
+
+<script type="text/javascript">
+  function addDashesPhoneDos(f2) {
+  var r2= /(\D+)/g,
   npa2 = '',
   nxx2 = '',
   last42 = '';
@@ -231,6 +235,25 @@ onKeypress="addDashesPhoneDos(this)" required class="form-control" name="otro_te
   f2.value = npa2 + '-' + nxx2 + '-' + last42;
 }
 </script>
+<script type="text/javascript">
+       function checkA15(checkbox) {
+          if (checkbox.checked)
+                {
+                    $('#otro_telefono_persona_asistida').val('Se Desconoce');
+                    document.getElementById('otro_telefono_persona_asistida').setAttribute("readonly","readonly");
+                    document.getElementById('otro_telefono_persona_asistida').style.background="#e9ecef";
+                    divAY= document.getElementById("otro_telefono_persona_asistida").disabled=true;
+
+           }
+           else{
+                    $('#otro_telefono_persona_asistida').val('');
+                  document.getElementById('otro_telefono_persona_asistida').style.background="white";
+                    document.getElementById('otro_telefono_persona_asistida').removeAttribute("readonly");
+                  divA = document.getElementById("otro_telefono_persona_asistida").disabled=false;
+
+           }}
+    </script>
+
 <!-A14IV Domicilio>
 
       <div class="form-group"{{ $errors->has('domicilio_persona_asistida') ? 'has-error' : ''}}>

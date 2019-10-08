@@ -34,7 +34,7 @@ session_start();
          <section class="container jumbotron shadow p-3 mb-5 bg-white rounded"style="height: 120px" >
     
 <br><br>
-              <strong> <a type="button"  href="/paneldecontrolcaso/{{$caso->id}}" target="_self" style="width:100%; color:white;background-color:rgb(137, 210, 14);margin-bottom: -5%;margin-top: -12%;margin-left: 0.1%;color: black" class="btn col-XL" class="btn btn-danger">IR A CASO</button> </a></strong>
+              <strong> <a type="button"  href="/paneldecontrolcaso/{{$caso->id}}" target="_self" style="width:100%; color:white;background-color:rgb(137, 210, 14);margin-bottom: -5%;margin-top: -8%;margin-left: 0.1%;color: black" class="btn col-XL" class="btn btn-danger">IR A CASO</button> </a></strong>
               <br><br>
 
                 
@@ -241,7 +241,7 @@ session_start();
  <!-VICTIMA SELECCIONADA>
  @foreach($victimas as $victima)
 
- @if($victima->idCaso==session("idCaso")&&$victima->id==session("idVictim")&&$victima->activo=="1")
+ @if($victima->idCaso==session("idCaso")&&$victima->id==session("idVictim"))
 <div class="container jumbotron shadow p-3 mb-5 bg-white rounded" style="max-width: 80%;margin-top: 5%;text-align: center">
   <strong><h4 class="text-center" style="height: 1%;color:white;background-color: black;max-width: 100%">Realizar Intervenciones:</h4></strong>
 

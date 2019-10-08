@@ -35,7 +35,7 @@ session_start();
        <section class="container jumbotron shadow p-3 mb-5 bg-white rounded"style="height: 120px" >
     
 <br><br>
-                <a type="button"  href="/paneldecontrolvictima/{{$caso->id}}" target="_self" style="width:100%; color:white;background-color:rgb(137, 210, 14);margin-bottom: -5%;margin-top: -12%;margin-left: 0.1%;color: black" class="btn col-XL" class="btn btn-danger">IR A VICTIMA</button> </a><br><br>
+                <a type="button"  href="/paneldecontrolvictima/{{$caso->id}}" target="_self" style="width:100%; color:white;background-color:rgb(137, 210, 14);margin-bottom: -5%;margin-top: -8%;margin-left: 0.1%;color: black" class="btn col-XL" class="btn btn-danger">IR A VICTIMA</button> </a><br><br>
 
       </section> 
 

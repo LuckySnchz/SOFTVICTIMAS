@@ -194,7 +194,7 @@ public function editar(Request $form) {
 $validator = Validator::make($form->all(), $reglas);
 
 $validator->sometimes('vinculo_otro_familiar', 'required|min:3|max:255|regex:/^([a-zA-ZñÑ.\s*-])+$/', function ($input) {
-      return $input->vinculo_victima == 4;
+      return $input->vinculo_victima == 1;
     });
 
     $validator->sometimes('vinculo_otro', 'required|min:3|max:255|regex:/^([a-zA-ZñÑ.\s*-])+$/', function ($input) {
@@ -214,6 +214,7 @@ $validator->sometimes('vinculo_otro_familiar', 'required|min:3|max:255|regex:/^(
       $persona->vinculo_otro= $form ["vinculo_otro"];
       $persona->vinculo_otro_familiar= $form ["vinculo_otro_familiar"];
       $persona->telefono_persona_asistida= $form ["telefono_persona_asistida"];
+      $persona->otro_telefono_persona_asistida= $form ["otro_telefono_persona_asistida"];
       $persona->domicilio_persona_asistida= $form ["domicilio_persona_asistida"];
       $persona->localidad_persona_asistida= $form ["localidad_persona_asistida"];
       $persona->idCaso= $form["idCaso"];
@@ -236,13 +237,14 @@ $vinculo_victima=$persona->vinculo_victima;
 $vinculo_otro=$persona->vinculo_otro;
 $vinculo_otro_familiar=$persona->vinculo_otro_familiar;
 $telefono_persona_asistida=$persona->telefono_persona_asistida;
+$otro_telefono_persona_asistida=$persona->otro_telefono_persona_asistida;
 $domicilio_persona_asistida=$persona->domicilio_persona_asistida;
 $localidad_persona_asistida=$persona->localidad_persona_asistida;
 
 
    
    return view("detallePersona", compact("persona","personas","nombre_persona_asistida",
-    "vinculo_victima","vinculo_otro","telefono_persona_asistida","domicilio_persona_asistida","localidad_persona_asistida","cantVictimas","vinculo_otro_familiar"));
+    "vinculo_victima","vinculo_otro","telefono_persona_asistida","domicilio_persona_asistida","localidad_persona_asistida","cantVictimas","vinculo_otro_familiar","otro_telefono_persona_asistida"));
   
 }
 }

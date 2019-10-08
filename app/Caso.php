@@ -68,6 +68,14 @@ public function delito() {
     return $this->hasMany(Intervencion::class,"idCaso");
   }
 
+    public function convivientes() {
+    return $this->hasMany(Conviviente::class,"idCaso");
+  }
+
+  public function imputados() {
+    return $this->hasMany(Imputado::class,"idCaso");
+  }
+
   public function personas() {
     return $this->hasMany(Persona::class,"idCaso");
   }

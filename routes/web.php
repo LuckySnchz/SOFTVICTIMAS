@@ -210,7 +210,10 @@ Route::get("/agregarIntervencion",function(){
   $socioeconomicos = App\Socioeconomico::all();
   $departamentos = App\Departamento::all();
   $victimas= App\Victim::all();
-  $intervenciones = App\Intervencion::all();
+    $intervenciones = DB::table("intervenciones")
+   ->select(DB::raw("*"))
+    ->orderBy(DB::raw("idVictim","ASC"))->orderBy(DB::raw("fecha_intervencion","ASC"))
+    ->get();
   $organismos = App\Organismo::all(); 
 
   $institucion_oarticulas = App\Institucion_Oarticula::all();
@@ -264,8 +267,10 @@ Route::get("/agregarIntervencion/{id}",function($id){
   $victimas= App\Victim::all();
   $ciudades= App\Ciudad::all();
   $organismos = App\Organismo::all();
-  $intervenciones = App\Intervencion::all();
-  
+   $intervenciones = DB::table("intervenciones")
+   ->select(DB::raw("*"))
+    ->orderBy(DB::raw("idVictim","ASC"))->orderBy(DB::raw("fecha_intervencion","ASC"))
+    ->get();
 
   $institucion_oarticulas = App\Institucion_Oarticula::all();
   $delitos = App\Delito::all();
@@ -293,10 +298,9 @@ Route::get("/agregarnuevaIntervencionvictima/{id}",function($id){
   $victimas= App\Victim::all();
   $ciudades= App\Ciudad::all();
   $organismos = App\Organismo::all();
-
   $intervenciones = DB::table("intervenciones")
-    ->select(DB::raw("*"))
-    ->orderBy(DB::raw("fecha_intervencion","ASC"))
+   ->select(DB::raw("*"))
+    ->orderBy(DB::raw("idVictim","ASC"))->orderBy(DB::raw("fecha_intervencion","ASC"))
     ->get();
  
   $institucion_oarticulas = App\Institucion_Oarticula::all();
@@ -490,10 +494,11 @@ Route::get("/detalleagregarVictima",function(){
   $discapacidades = App\Discapacidad::all();
   $limitaciones = App\Limitacion::all();
   $victims= App\Victim::all();
-  
+  $ciudades =App\Ciudad::where("idPcia","1")
+  ->orWhere("idPcia","2")->get();
   $instituciones = App\Institucion::all();
   $institucionnav= App\Institucion::where("idCaso",session("idCaso"))->count();
-  return view("detalleagregarVictima", compact("necesidades","programas","discapacidades","limitaciones","victims","instituciones","institucionnav"));
+  return view("detalleagregarVictima", compact("ciudades","necesidades","programas","discapacidades","limitaciones","victims","instituciones","institucionnav"));
 })->middleware('auth');
 
 Route::post("/detalleagregarVictima","VictimaPanelController@agregar")->middleware('auth');
@@ -571,7 +576,10 @@ $documentos = App\Documento::all();
 $instituciones = App\Institucion::all();
 $institucion = App\Institucion::find($id);
 $organismo = App\Institucion::where("idCaso",$id)->get();
-$intervenciones = App\Intervencion::all();
+  $intervenciones = DB::table("intervenciones")
+   ->select(DB::raw("*"))
+    ->orderBy(DB::raw("idVictim","ASC"))->orderBy(DB::raw("fecha_intervencion","ASC"))
+    ->get();
 $personas_nuevas = App\Persona_nueva::all();
 $convivientes_nuevos=App\Conviviente_nuevo::all();
 $imputados_nuevos=App\Imputado_nuevo::all();
@@ -604,7 +612,10 @@ $personas=App\Persona::all();
 $profesionales=App\Profesional::all();
 $documentos = App\Documento::all();
 $instituciones = App\Institucion::all();
-$intervenciones = App\Intervencion::all();
+  $intervenciones = DB::table("intervenciones")
+   ->select(DB::raw("*"))
+    ->orderBy(DB::raw("idVictim","ASC"))->orderBy(DB::raw("fecha_intervencion","ASC"))
+    ->get();
 $personas_nuevas = App\Persona_nueva::all();
 $convivientes_nuevos=App\Conviviente_nuevo::all();
 $imputados_nuevos=App\Imputado_nuevo::all();
@@ -632,7 +643,10 @@ $personas=App\Persona::all();
 $profesionales=App\Profesional::all();
 $documentos = App\Documento::all();
 $instituciones = App\Institucion::all();
-$intervenciones = App\Intervencion::all();
+  $intervenciones = DB::table("intervenciones")
+   ->select(DB::raw("*"))
+    ->orderBy(DB::raw("idVictim","ASC"))->orderBy(DB::raw("fecha_intervencion","ASC"))
+    ->get();
 $personas_nuevas = App\Persona_nueva::all();
 $convivientes_nuevos=App\Conviviente_nuevo::all();
 $imputados_nuevos=App\Imputado_nuevo::all();
@@ -669,7 +683,10 @@ $documentos = App\Documento::all();
 $instituciones = App\Institucion::all();
 $institucion = App\Institucion::find($id);
 $organismo = App\Institucion::where("idCaso",$id)->get();
-$intervenciones = App\Intervencion::all();
+  $intervenciones = DB::table("intervenciones")
+   ->select(DB::raw("*"))
+    ->orderBy(DB::raw("idVictim","ASC"))->orderBy(DB::raw("fecha_intervencion","ASC"))
+    ->get();
 $personas_nuevas = App\Persona_nueva::all();
 $convivientes_nuevos=App\Conviviente_nuevo::all();
 $imputados_nuevos=App\Imputado_nuevo::all();
@@ -695,7 +712,10 @@ $personas=App\Persona::all();
 $profesionales=App\Profesional::all();
 $documentos = App\Documento::all();
 $instituciones = App\Institucion::all();
-$intervenciones = App\Intervencion::all();
+  $intervenciones = DB::table("intervenciones")
+   ->select(DB::raw("*"))
+    ->orderBy(DB::raw("idVictim","ASC"))->orderBy(DB::raw("fecha_intervencion","ASC"))
+    ->get();
 $personas_nuevas = App\Persona_nueva::all();
 $convivientes_nuevos=App\Conviviente_nuevo::all();
 $imputados_nuevos=App\Imputado_nuevo::all();
@@ -720,7 +740,10 @@ $personas=App\Persona::all();
 $profesionales=App\Profesional::all();
 $documentos = App\Documento::all();
 $instituciones = App\Institucion::all();
-$intervenciones = App\Intervencion::all();
+  $intervenciones = DB::table("intervenciones")
+   ->select(DB::raw("*"))
+    ->orderBy(DB::raw("idVictim","ASC"))->orderBy(DB::raw("fecha_intervencion","ASC"))
+    ->get();
 $personas_nuevas = App\Persona_nueva::all();
 $convivientes_nuevos=App\Conviviente_nuevo::all();
 $imputados_nuevos=App\Imputado_nuevo::all();
@@ -757,14 +780,17 @@ $documentos = App\Documento::all();
 $instituciones = App\Institucion::all();
 $institucion = App\Institucion::find($id);
 $organismo = App\Institucion::where("idCaso",$id)->get();
-$intervenciones = App\Intervencion::all();
+  $intervenciones = DB::table("intervenciones")
+   ->select(DB::raw("*"))
+    ->orderBy(DB::raw("idVictim","ASC"))->orderBy(DB::raw("fecha_intervencion","ASC"))
+    ->get();
 $personas_nuevas = App\Persona_nueva::all();
 $convivientes_nuevos=App\Conviviente_nuevo::all();
 $imputados_nuevos=App\Imputado_nuevo::all();
 $instituciocount= App\Institucion::where("idCaso",session("idCaso"))->count();
 $casoActual = App\Caso::find(session("idCaso"));
   $intervenciones = DB::table("intervenciones")
-    ->select(DB::raw("*"))
+   ->select(DB::raw("*"))
     ->orderBy(DB::raw("idVictim","ASC"))->orderBy(DB::raw("fecha_intervencion","ASC"))
     ->get();
   return view("paneldecontrolvictima",compact("intervenciones","imputados","casoNombre","convivientes","victimas","personas","profesionales", "caso","delitos","cavajs","usuarios","documentos","instituciones","hechos","intervenciones","organismo","idCaso","instituciocount","personas_nuevas","convivientes_nuevos","imputados_nuevos","casos","casoActual","delitoActual","user"));
@@ -787,7 +813,10 @@ $personas=App\Persona::all();
 $profesionales=App\Profesional::all();
 $documentos = App\Documento::all();
 $instituciones = App\Institucion::all();
-$intervenciones = App\Intervencion::all();
+  $intervenciones = DB::table("intervenciones")
+   ->select(DB::raw("*"))
+    ->orderBy(DB::raw("idVictim","ASC"))->orderBy(DB::raw("fecha_intervencion","ASC"))
+    ->get();
 $personas_nuevas = App\Persona_nueva::all();
 $convivientes_nuevos=App\Conviviente_nuevo::all();
 $imputados_nuevos=App\Imputado_nuevo::all();
@@ -812,7 +841,10 @@ $personas=App\Persona::all();
 $profesionales=App\Profesional::all();
 $documentos = App\Documento::all();
 $instituciones = App\Institucion::all();
-$intervenciones = App\Intervencion::all();
+  $intervenciones = DB::table("intervenciones")
+   ->select(DB::raw("*"))
+    ->orderBy(DB::raw("idVictim","ASC"))->orderBy(DB::raw("fecha_intervencion","ASC"))
+    ->get();
 $personas_nuevas = App\Persona_nueva::all();
 $convivientes_nuevos=App\Conviviente_nuevo::all();
 $imputados_nuevos=App\Imputado_nuevo::all();
@@ -842,12 +874,18 @@ $profesionales=App\Profesional::all();
 $documentos = App\Documento::all();
 $oarticulas = App\Oarticula::all();
 $instituciones = App\Institucion::all();
-$intervenciones = App\Intervencion::all();
+$intervenciones = DB::table("intervenciones")
+    ->select(DB::raw("*"))
+    ->orderBy(DB::raw("idVictim","ASC"))->orderBy(DB::raw("fecha_intervencion","ASC"))
+    ->get();
 $institucion_oarticulas = App\Institucion_Oarticula::all();
 $provincias = App\Provincia::all();
 $organismos = App\Organismo::all();
 $casoActual = App\Caso::find(session("idCaso"));
-  return view("informe",compact("organismos","provincias","ciudades","oarticulas","institucion_oarticulas","departamentos","casoActual","imputados","convivientes","victimas","personas","profesionales", "caso","delitos","cavajs","usuarios","documentos","instituciones","hechos","intervenciones","casoActual","delitoActual"));
+$imputados_nuevos=App\Imputado_nuevo::all();
+$personas_nuevas = App\Persona_nueva::all();
+$convivientes_nuevos=App\Conviviente_nuevo::all();
+  return view("informe",compact("organismos","provincias","ciudades","oarticulas","institucion_oarticulas","departamentos","casoActual","imputados","convivientes","victimas","personas","profesionales", "caso","delitos","cavajs","usuarios","documentos","instituciones","hechos","intervenciones","casoActual","delitoActual","imputados_nuevos","personas_nuevas","convivientes_nuevos"));
 })->middleware('auth');
 //------------------------------FIN RUTA INFORME demanda FINAL------------------------------------------//
 Route::get("/informedemanda/{id}",function($id){
@@ -1005,9 +1043,8 @@ Password Change Routes...
 $this->get('password/change', 'Auth\ChangePasswordController@showChangePasswordForm')->name('password.change');
 $this->post('password/change', 'Auth\ChangePasswordController@change')->name('password.change.post');
 
+*/
 
-
-descarga la tabla Casos
 use App\Exports\CasosExport;
 use App\Exports\VictimasExport;
 use App\Exports\IncidenciasExport;
@@ -1028,7 +1065,7 @@ if ($user->hasRole('admin')) {
 
 
 
-
+/*
 
 CREAR CLAVES ALEATORIAS PARA CADA USUARIO(TABLA USERS) Y HASHEARLAS
 
